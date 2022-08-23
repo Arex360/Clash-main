@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using System;
 using LightDev;
 using LightDev.Core;
 
@@ -102,7 +102,6 @@ namespace TPSShooter
     {
       Events.JumpRequested += OnJumpRequested;
       Events.CrouchRequested += OnCrouchRequested;
-
       Events.FireRequested += OnFireRequested;
       Events.ReloadRequested += OnReloadRequested;
       Events.SwapWeaponRequested += OnSwapWeaponRequested;
