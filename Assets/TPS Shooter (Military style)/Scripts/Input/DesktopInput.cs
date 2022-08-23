@@ -48,7 +48,7 @@ namespace TPSShooter
     {
       if (isCursorLocked) LockCursor();
 
-      Events.GamePaused += OnGamePaused;
+      //Events.GamePaused += OnGamePaused;
       Events.GameResumed += OnGameResumed;
       Events.PlayerDied += OnPlayerDied;
     }
@@ -91,7 +91,7 @@ namespace TPSShooter
       if (isWeaponChoose) return;
 
       // Pause state
-      if (Input.GetKeyDown(pauseGameKeyCode))
+      if (Input.GetKeyDown(pauseGameKeyCode) && false)
       {
         Events.GamePauseRequested.Call();
 
@@ -117,7 +117,7 @@ namespace TPSShooter
       // Weapon
       if (Input.GetMouseButton(0))
       {
-        Events.FireRequested.Call();
+        //Events.FireRequested.Call();
       }
       if (Input.GetKeyDown(reloadKeyCode))
       {

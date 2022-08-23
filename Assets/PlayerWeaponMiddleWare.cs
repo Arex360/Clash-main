@@ -8,11 +8,12 @@ public class PlayerWeaponMiddleWare : MonoBehaviour
     public PlayerWeaponSettings playerWeaponSettings;
     public GameObject enemy;
     public int currentWeaponIndex;
+    //public PlayerWeapon Weapon;
     void Start()
     {
         pb = this.GetComponent<PlayerBehaviour>();
         playerWeaponSettings = pb.weaponSettings;
-        Instantiate(enemy);
+       // Instantiate(enemy);
     }
 
     // Update is called once per frame

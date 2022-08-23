@@ -26,7 +26,7 @@ namespace TPSShooter
     public bool IsAlive { get; private set; } = true;
     public float Noise { get { return GetNoise(); } }
     public static PlayerBehaviour GetInstance() { return instance; }
-
+    private bool isSubsribed;
     #region MonoBehaviour
 
     private void OnValidate()
@@ -69,6 +69,7 @@ namespace TPSShooter
 
     private void Update()
     {
+      if(!isSubsribed) return;
       UpdateGroundCheck();
 
       UpdateWalk();
@@ -82,11 +83,13 @@ namespace TPSShooter
 
     private void LateUpdate()
     {
+      if(!isSubsribed) return;
       UpdateSpineIK();
     }
 
     private void OnAnimatorIK(int layerIndex)
     {
+      if(!isSubsribed) return;
       UpdateLeftHandIK();
     }
 
@@ -114,10 +117,12 @@ namespace TPSShooter
 
       Events.PlayerGetInVehicle += OnPlayerGetInVehicle;
       Events.PlayerGetOutVehicle += OnPlayerGetOutVehicle;
+      isSubsribed = true;
     }
 
-    private void Unsubscribe()
+    public void Unsubscribe()
     {
+      isSubsribed = false;
       Events.JumpRequested -= OnJumpRequested;
       Events.CrouchRequested -= OnCrouchRequested;
 
@@ -148,7 +153,13 @@ namespace TPSShooter
 
       return 0;
     }
-
+    public void EnableWeapon(int id){
+      for(int i = 0; i<weaponSettings.AllWeapons.Length;i++){
+        print(weaponSettings.AllWeapons[i].name);
+        weaponSettings.AllWeapons[i].gameObject.SetActive(false);
+      }
+      weaponSettings.AllWeapons[id].gameObject.SetActive(true);
+    }
     public void Die()
     {
       if (!IsAlive) return;

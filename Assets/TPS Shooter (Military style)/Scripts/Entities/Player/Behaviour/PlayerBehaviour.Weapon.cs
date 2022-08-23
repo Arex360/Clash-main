@@ -17,7 +17,7 @@ namespace TPSShooter
     public PlayerWeapon CurrentWeaponBehaviour { get { return weaponSettings.CurrentWeapon; } set { weaponSettings.CurrentWeapon = value; } }
     public int CurrentWeaponIndex { get; private set; } = -1;
 
-    private Coroutine fireCoroutine;
+    public Coroutine fireCoroutine;
 
     private int MaxWeaponCount = 8;
 
@@ -60,7 +60,7 @@ namespace TPSShooter
       }
     }
 
-    private void OnFireRequested()
+    public void OnFireRequested()
     {
       if (IsAlive == false) return;
 
@@ -110,7 +110,7 @@ namespace TPSShooter
       DropWeapon(weaponIndex);
     }
 
-    private void Fire()
+    public void Fire()
     {
       CurrentWeaponBehaviour.Fire(FirePoint);
       Events.PlayerFire.Call();

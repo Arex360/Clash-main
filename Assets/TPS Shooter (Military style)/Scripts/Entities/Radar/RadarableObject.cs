@@ -4,6 +4,7 @@ using UnityEngine.UI;
 namespace TPSShooter.UI
 {
   // Add this script to GameObject that has to be displayed on the Radar.
+  
   public class RadarableObject : MonoBehaviour
   {
     public GameObject RadarableImagePrefab;
