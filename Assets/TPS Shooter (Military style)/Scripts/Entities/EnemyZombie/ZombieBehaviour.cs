@@ -285,6 +285,7 @@ namespace TPSShooter
 
     private bool CanChangeStateToSearch()
     {
+     
       if (IsPlayerNoticedByRaycast()) return false;
       if (!IsPlayerNoiseDetected()) return false;
 

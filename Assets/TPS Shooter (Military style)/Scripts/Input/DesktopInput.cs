@@ -10,7 +10,7 @@ namespace TPSShooter
     public float mouseSensitivity = 4;
 
     [Header("- Cursor -")]
-    public bool isCursorLocked = true;
+    public bool isCursorLocked = false;
 
     [Header("- Key codes -")]
     public KeyCode runKeyCode = KeyCode.LeftShift;
