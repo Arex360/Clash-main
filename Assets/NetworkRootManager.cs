@@ -36,12 +36,14 @@ public class NetworkRootManager : NetworkBehaviour
    [Command(requiresAuthority = false)]
    public void CmdSpawnPlayerA(){
         GameObject plr = Instantiate(FindObjectOfType<NetworkManager>().spawnPrefabs[1]);
+        NetworkGameManager.instance.myTeam = "A";
         NetworkServer.Spawn(plr,connectionToClient);
    }
    [Command(requiresAuthority = false)]
 
    public void CmdSpawnPlayerB(){
          GameObject plr = Instantiate(FindObjectOfType<NetworkManager>().spawnPrefabs[2]);
+         NetworkGameManager.instance.myTeam = "B";
         NetworkServer.Spawn(plr,connectionToClient);
    }
 

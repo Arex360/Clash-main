@@ -43,6 +43,16 @@ public class PlayerHealth : NetworkBehaviour
         }
         if(newV <= 0){
            animator.SetTrigger("Died");
+           if(hasAuthority){
+            if(NetworkGameManager.instance.myTeam == "A"){
+                PlayerCamera.instance.getDestroy();    
+                CmdReSpawn(1);
+
+            }else{
+                PlayerCamera.instance.getDestroy();
+                CmdReSpawn(2);
+            }
+           }
         }
     }
     public void TakeDamage(float ammount){
@@ -51,4 +61,11 @@ public class PlayerHealth : NetworkBehaviour
             
         }
     }
+    [Command]
+    public void CmdReSpawn(int index){
+        GameObject player = Instantiate(FindObjectOfType<NetworkManager>().spawnPrefabs[index]);
+        NetworkServer.Spawn(player,connectionToClient);
+        NetworkServer.Destroy(this.gameObject);
+    }
+
 }
