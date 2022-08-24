@@ -12,6 +12,7 @@ public class NetworkTeam : NetworkBehaviour
     [SyncVar]
     public int kills;
     public string username;
+    public string team;
     void Start(){
         username = $"Arex {Random.RandomRange(0,100)}";
     }
@@ -28,10 +29,10 @@ public class NetworkTeam : NetworkBehaviour
         NetworkGameManager.instance.RegisterTeam();
     }
     private void Update(){
-        if(!isLocalPlayer){
+        if(!hasAuthority){
             return;
         }
-        CmdSetData(username,"A",0);
+        CmdSetData(username,team,0);
     }
     
 }

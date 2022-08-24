@@ -16,7 +16,7 @@ public class PlayerHealth : NetworkBehaviour
     {
         animator = this.GetComponent<Animator>();
         playerBehaviour = this.GetComponent<PlayerBehaviour>();
-        if(isLocalPlayer){
+        if(hasAuthority){
             Destroy(healthFill);
         }
     }
@@ -24,7 +24,7 @@ public class PlayerHealth : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isLocalPlayer){
+        if(hasAuthority){
             CmdSetHealth(localHealth);
         }
         fillAmmout = health/100;
@@ -46,7 +46,7 @@ public class PlayerHealth : NetworkBehaviour
         }
     }
     public void TakeDamage(float ammount){
-        if(isLocalPlayer){
+        if(hasAuthority){
             localHealth -= ammount;
             
         }

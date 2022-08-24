@@ -29,7 +29,7 @@ public class NetworkPlayer : NetworkBehaviour
     void Start()
     {
         username = $"Arex {Random.RandomRange(0,100)}"; 
-        if(isLocalPlayer){
+        if(hasAuthority){
             //CmdRegister(username);
             //CmdSetTeam("A");
         }
@@ -42,7 +42,7 @@ public class NetworkPlayer : NetworkBehaviour
         playerAutoshoot = this.GetComponent<PlayerAutoshoot>();
         playerGrenade = this.GetComponent<PlayerGrenade>();
         playerWeaponMiddleWare = this.GetComponent<PlayerWeaponMiddleWare>();
-        if (isLocalPlayer)
+        if (hasAuthority)
         {
             camRig.transform.parent = null;
             Cursor.visible = false;
@@ -69,7 +69,7 @@ public class NetworkPlayer : NetworkBehaviour
             //playerBehaviour.EnableWeapon(wepID);
         }
         oldID = wepID;
-        if(!isLocalPlayer){
+        if(!hasAuthority){
             return;
         }
         CmdRegister(username);
@@ -140,7 +140,7 @@ public class NetworkPlayer : NetworkBehaviour
         //NetworkGameManager.instance.Register();
     }
     public void OnChangeTeam(string oldV,string newV){
-        NetworkGameManager.instance.RegisterTeam();
+       // NetworkGameManager.instance.RegisterTeam();
     }
     [Command]
     public void CmdSetTeam(string _team){
