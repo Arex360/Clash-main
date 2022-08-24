@@ -23,7 +23,7 @@ namespace TPSShooter
         hit.transform.GetComponent<ZombieDamagable>().OnBulletHit(this);
       }
       print($"Bullet shot by {id}");
-      hit.transform.GetComponent<PlayerHealth>().TakeDamage(bullet_damage);
+      hit.transform.GetComponent<PlayerHealth>().TakeDamage(bullet_damage,id);
     }
   }
 }

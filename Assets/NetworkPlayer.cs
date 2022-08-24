@@ -26,8 +26,10 @@ public class NetworkPlayer : NetworkBehaviour
     public int oldID;
     public int randomInt;
     public string username;
+    public NetworkTeam networkTeam;
     void Start()
     {
+        networkTeam = this.GetComponent<NetworkTeam>();
         username = $"Arex {Random.RandomRange(0,100)}"; 
         if(hasAuthority){
             //CmdRegister(username);
@@ -85,7 +87,7 @@ public class NetworkPlayer : NetworkBehaviour
         }
         if(Input.GetMouseButton(0)){
             Vector3 firepoint = playerBehaviour.FirePoint;
-            CmdShoot(firepoint);
+            CmdShoot(firepoint,networkTeam.playerName);
         }
 
         
@@ -116,13 +118,13 @@ public class NetworkPlayer : NetworkBehaviour
       //playerBehaviour.Fire();
     }
     [Command]
-    public void CmdShoot(Vector3 point){
-        RpcShoot(point);
+    public void CmdShoot(Vector3 point,string _name){
+        RpcShoot(point,_name);
     }
     [ClientRpc]
-    public void RpcShoot(Vector3 firepoint){
+    public void RpcShoot(Vector3 firepoint,string _name){
         
-        playerBehaviour.OnFireRequested(firepoint,"Owais");
+        playerBehaviour.OnFireRequested(firepoint,_name);
     }
     [Command]
     public void CmdSpawnEnemy(){

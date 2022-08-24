@@ -11,6 +11,6 @@ public class PlayerCamera : MonoBehaviour
     }
 
     public void getDestroy(){
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
     }
 }

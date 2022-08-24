@@ -15,9 +15,10 @@ public class NetworkGameManager : MonoBehaviour
 
     public TeamACell teamACell;
     public TeamBCell teamBCell;
-
+    public Dictionary<string,NetworkTeam> playerStat;
     private void Awake(){
         instance = this;
+        playerStat = new Dictionary<string, NetworkTeam>();
     }
 
     // Update is called once per frame
@@ -33,7 +34,9 @@ public class NetworkGameManager : MonoBehaviour
             }
         }
     }
-
+    public void IncreamentKills(string id,int ammount){
+        playerStat[id].localKills++;
+    }
     public void RegisterTeam(){
         networkTeams = GameObject.FindObjectsOfType<NetworkTeam>();
         foreach(NetworkTeam plr in networkTeams){
@@ -41,10 +44,12 @@ public class NetworkGameManager : MonoBehaviour
                 if(!teamA.Contains(plr)){
                     teamA.Add(plr);
                     teamACell.LinkNetworkNetworkPlayer(plr);
+                    playerStat.Add(plr.playerName,plr);
                 }
             }else{
                 if(!teamB.Contains(plr)){
                     teamB.Add(plr);
+                    playerStat.Add(plr.playerName,plr);
                     teamBCell.LinkNetworkNetworkPlayer(plr);
                 }
             }

@@ -13,6 +13,7 @@ public class NetworkTeam : NetworkBehaviour
     public int kills;
     public string username;
     public string team;
+    public int localKills;
     void Start(){
         username = $"Arex {Random.RandomRange(0,100)}";
     }
@@ -32,7 +33,13 @@ public class NetworkTeam : NetworkBehaviour
         if(!hasAuthority){
             return;
         }
-        CmdSetData(username,team,0);
+        CmdSetData(username,team,localKills);
     }
-    
+    [Command(requiresAuthority = false)]
+    public void CmdSetKills(int kill){
+        kills = kill;
+    }
+    public void SetKill(int kill){
+        CmdSetKills(kill);
+    }
 }
