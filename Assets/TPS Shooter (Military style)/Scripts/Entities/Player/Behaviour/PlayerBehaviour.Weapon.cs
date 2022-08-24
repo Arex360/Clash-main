@@ -60,7 +60,7 @@ namespace TPSShooter
       }
     }
 
-    public void OnFireRequested(Vector3 point)
+    public void OnFireRequested(Vector3 point,string id)
     {
       if (IsAlive == false) return;
 
@@ -75,7 +75,7 @@ namespace TPSShooter
       if (CurrentWeaponBehaviour.CanShoot == false) return;
       if (IsDrivingVehicle) return;
 
-      Fire(point);
+      Fire(point,id);
     }
 
     private void OnReloadRequested()
@@ -110,10 +110,10 @@ namespace TPSShooter
       DropWeapon(weaponIndex);
     }
 
-    public void Fire(Vector3 point)
+    public void Fire(Vector3 point,string id)
     {
       //CurrentWeaponBehaviour.Fire(FirePoint);
-      CurrentWeaponBehaviour.Fire(point);
+      CurrentWeaponBehaviour.Fire(point,id);
       Events.PlayerFire.Call();
       if (CurrentWeaponBehaviour.BulletsInMag == 0)
       {

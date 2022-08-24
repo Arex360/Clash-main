@@ -90,7 +90,7 @@ namespace TPSShooter
     private Vector3 _emptyFireVector = new Vector3(-90, 0, 0);
 
     // Shoot
-    public void Fire(Vector3 positionWhereToFire)
+    public void Fire(Vector3 positionWhereToFire,string id)
     {
       if (_canShoot && BulletsInMag > 0)
       {
@@ -127,11 +127,12 @@ namespace TPSShooter
         }
 
         // Instantiates bullet
-        Instantiate(
+        GameObject _bullet = Instantiate(
           BulletPrefab,
           BulletPosition.transform.position,
           BulletPosition.transform.rotation
         );
+        _bullet.GetComponent<PlayerBullet>().id = id;
       }
       else
       {

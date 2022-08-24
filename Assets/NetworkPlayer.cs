@@ -15,9 +15,24 @@ public class NetworkPlayer : NetworkBehaviour
     private PlayerWeaponMiddleWare playerWeaponMiddleWare;
     [SyncVar(hook = "OnChangeWeapon")]
     public int wepID;
+    [SyncVar( hook = "OnChangeTeam")]
+    public string Team;
+
+    [SyncVar]
+    public string playerName;
+    [SyncVar]
+    public int kills;
+
     public int oldID;
+    public int randomInt;
+    public string username;
     void Start()
     {
+        username = $"Arex {Random.RandomRange(0,100)}"; 
+        if(isLocalPlayer){
+            //CmdRegister(username);
+            //CmdSetTeam("A");
+        }
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         manager = GameObject.FindObjectOfType<NetworkManager>();
@@ -40,10 +55,10 @@ public class NetworkPlayer : NetworkBehaviour
             playerAutoshoot.enabled = false;
             playerVehicleAbility.enabled = false;
             playerMenuWeapon.enabled = false;
-            playerGrenade.enabled = false;
+           // playerGrenade.enabled = false;
         }
         if(isServer){
-            CmdSpawnEnemy();
+            //CmdSpawnEnemy();
         }
     }
 
@@ -57,6 +72,8 @@ public class NetworkPlayer : NetworkBehaviour
         if(!isLocalPlayer){
             return;
         }
+        CmdRegister(username);
+        CmdSetTeam("A");
         if(NetworkClient.active){
             if(!playerBehaviour){
                 return;
@@ -105,11 +122,28 @@ public class NetworkPlayer : NetworkBehaviour
     [ClientRpc]
     public void RpcShoot(Vector3 firepoint){
         
-        playerBehaviour.OnFireRequested(firepoint);
+        playerBehaviour.OnFireRequested(firepoint,"Owais");
     }
     [Command]
     public void CmdSpawnEnemy(){
         GameObject enemy = Instantiate(manager.spawnPrefabs[0]);
         NetworkServer.Spawn(enemy,connectionToClient);
+    }
+    [Command]
+    public void CmdRegister(string _name){
+        playerName = _name;
+        kills = 0;
+        RpcRegister();
+    }
+    [ClientRpc]
+    public void RpcRegister(){
+        //NetworkGameManager.instance.Register();
+    }
+    public void OnChangeTeam(string oldV,string newV){
+        NetworkGameManager.instance.RegisterTeam();
+    }
+    [Command]
+    public void CmdSetTeam(string _team){
+        Team =_team;
     }
 }

@@ -4,6 +4,8 @@ namespace TPSShooter
 {
   public class PlayerBullet : AbstractBullet
   {
+    public string id;
+    public int bullet_damage = 1;
     protected override void OnBulletCollision(RaycastHit hit)
     {
       // Influence on hit Object
@@ -20,6 +22,8 @@ namespace TPSShooter
       {
         hit.transform.GetComponent<ZombieDamagable>().OnBulletHit(this);
       }
+      print($"Bullet shot by {id}");
+      hit.transform.GetComponent<PlayerHealth>().TakeDamage(bullet_damage);
     }
   }
 }
