@@ -105,7 +105,7 @@ namespace TPSShooter
     {
       Events.JumpRequested += OnJumpRequested;
       Events.CrouchRequested += OnCrouchRequested;
-      Events.FireRequested += OnFireRequested;
+      //Events.FireRequested += OnFireRequested;
       Events.ReloadRequested += OnReloadRequested;
       Events.SwapWeaponRequested += OnSwapWeaponRequested;
       Events.DropWeaponRequested += OnDropWeaponRequested;
@@ -126,7 +126,7 @@ namespace TPSShooter
       Events.JumpRequested -= OnJumpRequested;
       Events.CrouchRequested -= OnCrouchRequested;
 
-      Events.FireRequested -= OnFireRequested;
+      //Events.FireRequested -= OnFireRequested;
       Events.ReloadRequested -= OnReloadRequested;
       Events.SwapWeaponRequested -= OnSwapWeaponRequested;
       Events.DropWeaponRequested -= OnDropWeaponRequested;

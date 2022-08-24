@@ -5,7 +5,7 @@ namespace TPSShooter
 {
   public partial class PlayerBehaviour
   {
-    private const float MaxHP = 100;
+    private const float MaxHP = 100000;
     private float hp = MaxHP;
 
     public float GetMaxHP() { return MaxHP; }

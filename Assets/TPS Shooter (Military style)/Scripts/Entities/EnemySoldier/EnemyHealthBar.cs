@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
+using Mirror;
 namespace TPSShooter
 {
   [RequireComponent(typeof(EnemyBehaviour))]
-  public class EnemyHealthBar : MonoBehaviour
+  public class EnemyHealthBar : NetworkBehaviour
   {
     public Transform holder;
     public Image fillImage;
@@ -32,10 +32,15 @@ namespace TPSShooter
     {
       UpdateHP();
     }
-
+    [Command(requiresAuthority = false)]
+    public void CmdKill(){
+      NetworkServer.Destroy(this.gameObject);
+    }
     private void OnDied()
     {
+
       holder.gameObject.SetActive(false);
+      CmdKill();
     }
 
     private void UpdateHP()

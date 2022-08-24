@@ -5,6 +5,7 @@ using Mirror;
 using TPSShooter;
 public class NetworkPlayer : NetworkBehaviour
 {
+    private NetworkManager manager;
     public GameObject camRig;
     private PlayerBehaviour playerBehaviour;
     private PlayerVehicleAbility playerVehicleAbility;
@@ -17,6 +18,9 @@ public class NetworkPlayer : NetworkBehaviour
     public int oldID;
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        manager = GameObject.FindObjectOfType<NetworkManager>();
         playerBehaviour = this.GetComponent<PlayerBehaviour>();
         playerVehicleAbility = this.GetComponent<PlayerVehicleAbility>();
         playerMenuWeapon = this.GetComponent<PlayerMenuWeapon>();
@@ -37,6 +41,9 @@ public class NetworkPlayer : NetworkBehaviour
             playerVehicleAbility.enabled = false;
             playerMenuWeapon.enabled = false;
             playerGrenade.enabled = false;
+        }
+        if(isServer){
+            CmdSpawnEnemy();
         }
     }
 
@@ -60,7 +67,8 @@ public class NetworkPlayer : NetworkBehaviour
             print("dum");
         }
         if(Input.GetMouseButton(0)){
-            CmdShoot();
+            Vector3 firepoint = playerBehaviour.FirePoint;
+            CmdShoot(firepoint);
         }
 
         
@@ -88,14 +96,20 @@ public class NetworkPlayer : NetworkBehaviour
       if (playerBehaviour.CurrentWeaponBehaviour.CanShoot == false) return;
       if (playerBehaviour.IsDrivingVehicle) return;
 
-      playerBehaviour.Fire();
+      //playerBehaviour.Fire();
     }
     [Command]
-    public void CmdShoot(){
-        RpcShoot();
+    public void CmdShoot(Vector3 point){
+        RpcShoot(point);
     }
     [ClientRpc]
-    public void RpcShoot(){
-        playerBehaviour.OnFireRequested();
+    public void RpcShoot(Vector3 firepoint){
+        
+        playerBehaviour.OnFireRequested(firepoint);
+    }
+    [Command]
+    public void CmdSpawnEnemy(){
+        GameObject enemy = Instantiate(manager.spawnPrefabs[0]);
+        NetworkServer.Spawn(enemy,connectionToClient);
     }
 }
