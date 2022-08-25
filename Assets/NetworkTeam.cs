@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using Mirror;
+using TMPro;
 public class NetworkTeam : NetworkBehaviour
 {
     [SyncVar (hook = "OnChangeName")]
@@ -14,8 +14,12 @@ public class NetworkTeam : NetworkBehaviour
     public string username;
     public string team;
     public int localKills;
+    public TextMeshProUGUI nameUI;
     void Start(){
         username = StaticData.nick;
+        if(hasAuthority){
+            Destroy(nameUI.gameObject);
+        }
     }
     [Command]
     public void CmdSetData(string name, string _team, int _kills){
@@ -25,6 +29,9 @@ public class NetworkTeam : NetworkBehaviour
     }
     public void OnChangeName(string oldN,string newN){
          NetworkGameManager.instance.Register();
+         if(nameUI){
+            nameUI.text = newN;
+         }
     }
     public void OnChangeTeam(string oldN, string newN){
         NetworkGameManager.instance.RegisterTeam();

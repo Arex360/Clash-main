@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NetworkGameManager : MonoBehaviour
 {
-
+    public int killToWin;
     public static NetworkGameManager instance;
     public string myTeam = "A";
     public NetworkPlayer[] networkPlayers;
@@ -16,6 +16,7 @@ public class NetworkGameManager : MonoBehaviour
     public TeamACell teamACell;
     public TeamBCell teamBCell;
     public Dictionary<string,NetworkTeam> playerStat;
+    public TMPro.TextMeshProUGUI msg;
     private void Awake(){
         instance = this;
         playerStat = new Dictionary<string, NetworkTeam>();
@@ -36,6 +37,39 @@ public class NetworkGameManager : MonoBehaviour
     }
     public void IncreamentKills(string id,int ammount){
         playerStat[id].localKills++;
+        CalculateKills();
+    }
+    public void CalculateKills(){
+        int killsA = 0;
+        int killsB = 0;
+        foreach(NetworkTeam team in teamA){
+             killsA += team.kills;
+        }
+        foreach(NetworkTeam team in teamB){
+            killsB += team.kills;
+        }
+        if(killsA > 0){
+            print("Team A on Lead");
+            if(killsA >= killToWin){
+                foreach(NetworkTeam team in playerStat.Values){
+                    team.localKills = 0;
+                }
+                msg.text = "Team A wins";
+                Invoke(nameof(resetMsg),2f);
+            }
+        }else{
+            print("Team B on lead");
+            if(killsB >= killToWin){
+                foreach(NetworkTeam team in playerStat.Values){
+                    team.localKills = 0;
+                }
+                msg.text = "Team B wins";
+                Invoke(nameof(resetMsg),2f);
+            }
+        }
+    }
+    public void resetMsg(){
+        msg.text = "";
     }
     public void RegisterTeam(){
         networkTeams = GameObject.FindObjectsOfType<NetworkTeam>();
