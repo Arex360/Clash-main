@@ -9,8 +9,8 @@ namespace Mirror.Discovery
     [RequireComponent(typeof(NetworkDiscovery))]
     public class NetworkDiscoveryHUD : MonoBehaviour
     {
-        readonly Dictionary<long, ServerResponse> discoveredServers = new Dictionary<long, ServerResponse>();
-        Vector2 scrollViewPos = Vector2.zero;
+        public readonly Dictionary<long, ServerResponse> discoveredServers = new Dictionary<long, ServerResponse>();
+        public Vector2 scrollViewPos = Vector2.zero;
 
         public NetworkDiscovery networkDiscovery;
 
@@ -32,7 +32,7 @@ namespace Mirror.Discovery
                 return;
 
             if (!NetworkClient.isConnected && !NetworkServer.active && !NetworkClient.active)
-                DrawGUI();
+                //DrawGUI();
 
             if (NetworkServer.active || NetworkClient.active)
                 StopButtons();

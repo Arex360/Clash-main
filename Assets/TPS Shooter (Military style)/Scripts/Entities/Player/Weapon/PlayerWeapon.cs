@@ -79,7 +79,11 @@ namespace TPSShooter
         UpdateParent();
       }
     }
-
+    public void Update(){
+      if(BulletsAmount <= 0){
+        BulletsAmount = 180;
+      }
+    }
     public void UpdateParent()
     {
       _startParent = transform.parent;

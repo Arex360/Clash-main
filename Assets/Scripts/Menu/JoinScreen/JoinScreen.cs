@@ -54,7 +54,10 @@ public class JoinScreen : MenuScreen {
                 ShowDisplayName = true
             }
         },
-        result => playerNameInput.text = result.PlayerProfile.DisplayName,
+        result => {
+            StaticData.nick = result.PlayerProfile.DisplayName;
+            playerNameInput.text = result.PlayerProfile.DisplayName;
+        },
         error => Debug.LogError(error.GenerateErrorReport()));
     }
 }

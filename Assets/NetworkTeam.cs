@@ -15,7 +15,7 @@ public class NetworkTeam : NetworkBehaviour
     public string team;
     public int localKills;
     void Start(){
-        username = $"Arex {Random.RandomRange(0,100)}";
+        username = StaticData.nick;
     }
     [Command]
     public void CmdSetData(string name, string _team, int _kills){
