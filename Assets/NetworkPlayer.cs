@@ -74,9 +74,11 @@ public class NetworkPlayer : NetworkBehaviour
         if(!hasAuthority){
             return;
         }
-        CmdRegister(username);
-        CmdSetTeam("A");
-        if(NetworkClient.active){
+        //CmdRegister(username);
+        //CmdSetTeam("A");
+        CmdSetWepID(playerWeaponMiddleWare.currentWeaponIndex);
+        print("Alerting");
+        if(true){
             if(!playerBehaviour){
                 return;
             }
