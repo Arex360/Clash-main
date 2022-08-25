@@ -127,10 +127,10 @@ namespace TPSShooter
       {
         Events.DropWeaponRequested.Call(PlayerBehaviour.GetInstance().CurrentWeaponIndex);
       }
-      if (Input.GetMouseButtonDown(1))
-      {
-        Events.AimActivateRequested.Call();
-      }
+      //if (Input.GetMouseButtonDown(1))
+     // {
+        //Events.AimActivateRequested.Call();
+      //}
       for (int i = 0; i < swapWeaponKeyCodes.Length; i++)
       {
         if (Input.GetKeyDown(swapWeaponKeyCodes[i]))
