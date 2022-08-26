@@ -30,6 +30,9 @@ public class PlayerHealth : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(health >0){
+            this.GetComponent<Animator>().SetTrigger("respawn");
+        }
         if(hasAuthority){
             CmdSetHealth(localHealth);
         }
@@ -51,14 +54,15 @@ public class PlayerHealth : NetworkBehaviour
         }
         if(newV <= 0){
            animator.SetTrigger("Died");
-           if(hasAuthority){
+           if(true){
                 //NetworkGameManager.instance.playerStat[lAttacker].SetKill(10);
-                Invoke(nameof(Respawn),5f);
+                Invoke(nameof(Respawn),3f);
            }
         }
     }
     public void TakeDamage(float ammount, string lasthit){
-        if(hasAuthority){
+        if(true){
+            print("take Damage called");
             //NetworkGameManager.instance.playerStat[lasthit].Team !
             if(networkTeam.Team != NetworkGameManager.instance.playerStat[lasthit].Team){
                 localHealth -= ammount;
