@@ -16,7 +16,11 @@ public class NetworkRootManager : NetworkBehaviour
         //spawnA();
     }
    public void Update(){
-       if(!spawned){
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+        if(!spawned){
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
        }else{

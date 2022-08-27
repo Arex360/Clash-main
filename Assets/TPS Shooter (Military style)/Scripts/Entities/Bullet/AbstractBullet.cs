@@ -21,7 +21,7 @@ namespace TPSShooter
       _startPosition = transform.position;
       _startDirection = transform.forward;
 
-      Destroy(gameObject, lifeTime);
+      Destroy(gameObject, 3f);
     }
 
     private void Update()

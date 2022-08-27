@@ -48,6 +48,7 @@ public class NetworkPlayer : NetworkBehaviour
         {
             camRig.transform.parent = null;
             Cursor.visible = false;
+            MenuController.gameStarted = true;
         }
         else
         {

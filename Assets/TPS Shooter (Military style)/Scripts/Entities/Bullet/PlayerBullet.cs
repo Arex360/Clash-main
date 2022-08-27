@@ -24,6 +24,7 @@ namespace TPSShooter
       }
       print($"Bullet shot by {id}");
       hit.transform.GetComponent<PlayerHealth>().TakeDamage(bullet_damage,id);
+            //hit.transform.SendMessage("TakeDamage",bullet_damage,id);
     }
   }
 }

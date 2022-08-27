@@ -41,6 +41,8 @@ public class NetworkTeam : NetworkBehaviour
             return;
         }
         CmdSetData(username,team,localKills);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
     [Command(requiresAuthority = false)]
     public void CmdSetKills(int kill){

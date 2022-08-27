@@ -14,7 +14,7 @@ namespace TPSShooter
   {
     public static bool IsGamePaused { get; private set; }
     public static bool IsGameFinished { get; private set; }
-
+    public bool cursor;
     private void Awake()
     {
       IsGamePaused = false;
@@ -26,7 +26,9 @@ namespace TPSShooter
       Events.GameLoadHomeSceneRequested += OnGameLoadHomeSceneRequested;
       Events.PlayerDied += OnPlayerDied;
     }
-
+    private void Update(){
+      cursor = Cursor.visible;
+    }
     private void OnDestroy()
     {
       Events.GamePauseRequested -= OnGamePauseRequested;

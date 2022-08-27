@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MenuController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public static bool gameStarted;
     void Start()
     {
         
@@ -13,7 +13,16 @@ public class MenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        if (!gameStarted)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        
     }
 }
