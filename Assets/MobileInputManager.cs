@@ -23,7 +23,7 @@ public class MobileInputManager : MonoBehaviour
             movementInput.SetActive(true);
             weaponInput.SetActive(true);
             permnaInput.SetActive(true);
-            weaponInputChoose.SetActive(true);
+            //weaponInputChoose.SetActive(true);
         }
         else
         {
@@ -31,7 +31,7 @@ public class MobileInputManager : MonoBehaviour
             movementInput.SetActive(false);
             weaponInput.SetActive(false);
             permnaInput.SetActive(false);
-            weaponInputChoose.SetActive(false);
+            //weaponInputChoose.SetActive(false);
         }
     }
 }

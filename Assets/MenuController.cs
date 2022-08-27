@@ -5,6 +5,7 @@ using UnityEngine;
 public class MenuController : MonoBehaviour
 {
     public static bool gameStarted;
+    public GameObject mobileInput;
     void Start()
     {
         
@@ -22,7 +23,12 @@ public class MenuController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            
         }
         
+    }
+    private void OnDisable()
+    {
+        mobileInput.SetActive(true);
     }
 }
