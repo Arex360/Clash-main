@@ -35,8 +35,8 @@ public class NetworkPlayer : NetworkBehaviour
             //CmdRegister(username);
             //CmdSetTeam("A");
         }
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+      //  Cursor.visible = false;
         manager = GameObject.FindObjectOfType<NetworkManager>();
         playerBehaviour = this.GetComponent<PlayerBehaviour>();
         playerVehicleAbility = this.GetComponent<PlayerVehicleAbility>();
@@ -47,7 +47,7 @@ public class NetworkPlayer : NetworkBehaviour
         if (hasAuthority)
         {
             camRig.transform.parent = null;
-            Cursor.visible = false;
+           // Cursor.visible = false;
             MenuController.gameStarted = true;
         }
         else
@@ -88,12 +88,15 @@ public class NetworkPlayer : NetworkBehaviour
         else{
             print("dum");
         }
-        if(Input.GetMouseButton(0)){
+        if(Input.GetMouseButton(0) && false){
             Vector3 firepoint = playerBehaviour.FirePoint;
             CmdShoot(firepoint,networkTeam.playerName);
         }
-
-        
+    }
+    public void ShootOnUI()
+    {
+        Vector3 firepoint = playerBehaviour.FirePoint;
+        CmdShoot(firepoint, networkTeam.playerName);
     }
     [Command]
     public void CmdSetWepID(int id){

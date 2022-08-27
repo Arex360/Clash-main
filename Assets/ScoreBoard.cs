@@ -21,4 +21,8 @@ public class ScoreBoard : MonoBehaviour
         }
         body.SetActive(shown);
     }
+    public void ToggleShow()
+    {
+        shown = !shown;
+    }
 }

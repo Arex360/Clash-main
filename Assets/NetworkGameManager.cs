@@ -20,8 +20,23 @@ public class NetworkGameManager : MonoBehaviour
     private void Awake(){
         instance = this;
         playerStat = new Dictionary<string, NetworkTeam>();
-    }
 
+    }
+    private void Start()
+    {
+        NetworkPlayer[] _networkPlayers = FindObjectsOfType<NetworkPlayer>();
+        foreach(NetworkPlayer plr in _networkPlayers)
+        {
+            if (plr.hasAuthority)
+            {
+                localPlayer = plr;
+            }
+        }
+    }
+    public void Shoot()
+    {
+        localPlayer.ShootOnUI();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -77,12 +92,20 @@ public class NetworkGameManager : MonoBehaviour
             if(plr.Team == "A"){
                 if(!teamA.Contains(plr)){
                     teamA.Add(plr);
+                    if (plr.hasAuthority)
+                    {
+                        localPlayer = plr.GetComponent<NetworkPlayer>();
+                    }
                     teamACell.LinkNetworkNetworkPlayer(plr);
                     playerStat.Add(plr.playerName,plr);
                 }
             }else{
                 if(!teamB.Contains(plr)){
                     teamB.Add(plr);
+                    if (plr.hasAuthority)
+                    {
+                        localPlayer = plr.GetComponent<NetworkPlayer>();
+                    }
                     playerStat.Add(plr.playerName,plr);
                     teamBCell.LinkNetworkNetworkPlayer(plr);
                 }
