@@ -24,6 +24,9 @@ namespace TPSShooter
       }
       print($"Bullet shot by {id}");
       hit.transform.GetComponent<PlayerHealth>().TakeDamage(bullet_damage,id);
+     // string oppoenet_ID = hit.transform.GetComponent<NetworkTeam>().playerName;
+           // hit.transform.GetComponent<PlayerHealth>().lAttacker = id;
+           // NetworkGameManager.instance.TakeDamage(bullet_damage, oppoenet_ID);
             //hit.transform.SendMessage("TakeDamage",bullet_damage,id);
     }
   }

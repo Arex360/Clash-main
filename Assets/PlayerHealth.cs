@@ -5,6 +5,12 @@ using Mirror;
 using TPSShooter;
 public class PlayerHealth : NetworkBehaviour
 {
+    [System.Serializable]
+    public class HealthUI
+    {
+        public GameObject healthHolder;
+        public TMPro.TextMeshProUGUI healthUIText;
+    }
     private PlayerBehaviour playerBehaviour;
     private Animator animator;
     public float localHealth;
@@ -16,6 +22,7 @@ public class PlayerHealth : NetworkBehaviour
     public Vector3 defaultPosition;
     public bool hasGivenKill;
     public NetworkTeam networkTeam;
+    public HealthUI healthUI;
     void Start()
     {
         animator = this.GetComponent<Animator>();
@@ -24,6 +31,10 @@ public class PlayerHealth : NetworkBehaviour
         playerBehaviour = this.GetComponent<PlayerBehaviour>();
         if(hasAuthority){
             Destroy(healthFill);
+        }
+        else
+        {
+            Destroy(healthUI.healthHolder);
         }
     }
 
@@ -36,6 +47,7 @@ public class PlayerHealth : NetworkBehaviour
         if(hasAuthority){
             CmdSetHealth(localHealth);
         }
+        
         fillAmmout = health/100;
         if(localHealth <= 0){
             playerBehaviour.enabled= false;
@@ -49,6 +61,11 @@ public class PlayerHealth : NetworkBehaviour
     }
     public void OnChangeHealth(float oldV,float newV){
         float perc = newV/100;
+        health = newV;
+        if (hasAuthority)
+        {
+            healthUI.healthUIText.text = newV.ToString();
+        }
         if(healthFill){
             healthFill.fillAmount = perc;
         }
@@ -61,7 +78,8 @@ public class PlayerHealth : NetworkBehaviour
         }
     }
     public void TakeDamage(float ammount, string lasthit){
-        if(true){
+        print("take Damage called");
+        if (true){
             print("take Damage called");
             //NetworkGameManager.instance.playerStat[lasthit].Team !
             if(networkTeam.Team != NetworkGameManager.instance.playerStat[lasthit].Team){

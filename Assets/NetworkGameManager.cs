@@ -86,6 +86,12 @@ public class NetworkGameManager : MonoBehaviour
     public void resetMsg(){
         msg.text = "";
     }
+
+    public void TakeDamage(float damage, string lasthit)
+    {
+        playerStat[lasthit].GetComponent<PlayerHealth>().localHealth -= damage;
+    }
+
     public void RegisterTeam(){
         networkTeams = GameObject.FindObjectsOfType<NetworkTeam>();
         foreach(NetworkTeam plr in networkTeams){
