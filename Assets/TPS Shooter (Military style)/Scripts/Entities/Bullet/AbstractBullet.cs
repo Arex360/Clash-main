@@ -31,8 +31,12 @@ namespace TPSShooter
 
       if (Physics.Linecast(transform.position, nextPosition, out hit, hitLayers))
       {
-        InstantiateDecals(hit);
-        OnBulletCollision(hit);
+                if (hit.transform)
+                {
+                    InstantiateDecals(hit);
+                    OnBulletCollision(hit);
+                }
+        
         Destroy(gameObject);
       }
       else

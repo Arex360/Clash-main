@@ -23,7 +23,7 @@ namespace TPSShooter
         }
         else if(nearbyObject.GetComponent<PlayerBehaviour>())
         {
-          nearbyObject.GetComponent<PlayerBehaviour>().OnGrenadeHit(this);
+          //nearbyObject.GetComponent<PlayerBehaviour>().OnGrenadeHit(this);
         }
         else if(nearbyObject.GetComponent<ZombieBehaviour>())
         {

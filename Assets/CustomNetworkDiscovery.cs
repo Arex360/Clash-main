@@ -6,6 +6,7 @@ using Mirror.Discovery;
 public class CustomNetworkDiscovery : NetworkDiscoveryHUD
 {
     public GameObject menu;
+    public bool isServer;
     ServerResponse info;
     public bool notJoined;
     long key;
@@ -25,6 +26,10 @@ public class CustomNetworkDiscovery : NetworkDiscoveryHUD
 
     }
     public void Update(){
+        if (!menu)
+        {
+            menu = FindObjectOfType<MenuController>().gameObject;
+        }
        if(discoveredServers.Count > 0 ){
             foreach (ServerResponse info in discoveredServers.Values){
             print(info.uri);
@@ -55,6 +60,7 @@ public class CustomNetworkDiscovery : NetworkDiscoveryHUD
         NetworkManager.singleton.StartHost();
         networkDiscovery.AdvertiseServer();
         menu.SetActive(false);
+        isServer = true;
     }
     public  void OnDiscoveredServer(ServerResponse info)
         {

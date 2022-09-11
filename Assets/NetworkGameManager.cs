@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Mirror;
 public class NetworkGameManager : MonoBehaviour
 {
     public int killToWin;
@@ -32,6 +32,29 @@ public class NetworkGameManager : MonoBehaviour
                 localPlayer = plr;
             }
         }
+    }
+    public void Disconnect()
+    {
+        CustomNetworkDiscovery net = FindObjectOfType<CustomNetworkDiscovery>();
+        
+        if (net.isServer)
+        {
+            NetworkManager.singleton.StopHost();
+        }
+        
+        
+       // NetworkManager.singleton.StopHost();
+        //UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
+    public void Host()
+    {
+        CustomNetworkDiscovery net = FindObjectOfType<CustomNetworkDiscovery>();
+        net.Host();
+    }
+    public void Join()
+    {
+        CustomNetworkDiscovery net = FindObjectOfType<CustomNetworkDiscovery>();
+        net.FindServers();
     }
     public void Shoot()
     {
