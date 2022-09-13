@@ -11,10 +11,17 @@ public class CustomNetworkDiscovery : NetworkDiscoveryHUD
     public bool notJoined;
     long key;
     int index = 0;
+    public bool join;
+   
+    private void Start()
+    {
+        join = false;
+    }
     public void FindServers(){
         discoveredServers.Clear();
         print("starting discorvery");
         networkDiscovery.StartDiscovery();
+        join = true;
         int index = 0;
         foreach (ServerResponse info in discoveredServers.Values){
             print(info.uri);
@@ -25,7 +32,8 @@ public class CustomNetworkDiscovery : NetworkDiscoveryHUD
         //}
 
     }
-    public void Update(){
+    public void LateUpdate(){
+        if (!join) return;
         if (!menu)
         {
             menu = FindObjectOfType<MenuController>().gameObject;
@@ -54,6 +62,7 @@ public class CustomNetworkDiscovery : NetworkDiscoveryHUD
         NetworkManager.singleton.StartClient(info.uri);
        // print("conneted");
         menu.SetActive(false);
+       
     }
     public void Host(){
         discoveredServers.Clear();

@@ -9,6 +9,7 @@ namespace TPSShooter.UI
   {
     [Header("References")]
     public Touchpad[] touchpads;
+        public GameObject pauseScreen;
 
     public override void Subscribe()
     {
@@ -40,7 +41,14 @@ namespace TPSShooter.UI
         if (t.IsPressed) break;
       }
     }
-
-    public void OnPauseGameClick() { Events.GamePauseRequested.Call(); }
+    public void ShowPauseScreen()
+        {
+            pauseScreen.SetActive(true);
+        }
+    public void HidePauseScreen()
+        {
+            pauseScreen.SetActive(false);
+        }
+   // public void OnPauseGameClick() { Events.GamePauseRequested.Call(); }
   }
 }

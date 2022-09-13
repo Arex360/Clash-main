@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using Mirror;
 public class NetworkGameManager : MonoBehaviour
 {
@@ -17,10 +18,39 @@ public class NetworkGameManager : MonoBehaviour
     public TeamBCell teamBCell;
     public Dictionary<string,NetworkTeam> playerStat;
     public TMPro.TextMeshProUGUI msg;
+    public GameObject menu;
+    public TMPro.TextMeshProUGUI redTeamUI;
+    public TMPro.TextMeshProUGUI blueTeamUI;
     private void Awake(){
         instance = this;
         playerStat = new Dictionary<string, NetworkTeam>();
 
+    }
+    private void FixedUpdate()
+    {
+        if (localPlayer)
+        {
+            menu.SetActive(true);
+        }
+        else
+        {
+            menu.SetActive(false);
+        }
+        playerStat =  (from kv in playerStat
+         where kv.Value != null
+         select kv).ToDictionary(kv => kv.Key, kv => kv.Value);
+        int killsA = 0;
+        int killsB = 0;
+        foreach (NetworkTeam team in teamA)
+        {
+            killsA += team.kills;
+        }
+        foreach (NetworkTeam team in teamB)
+        {
+            killsB += team.kills;
+        }
+        blueTeamUI.text = $"{killsA}";
+        redTeamUI.text = $"{killsB}";
     }
     private void Start()
     {
@@ -36,15 +66,28 @@ public class NetworkGameManager : MonoBehaviour
     public void Disconnect()
     {
         CustomNetworkDiscovery net = FindObjectOfType<CustomNetworkDiscovery>();
-        
+        if (!net.isServer)
+        {
+            net.join = false;
+            NetworkManager.singleton.StopClient();
+
+//            net.networkDiscovery.StopDiscovery();
+
+          //  net.discoveredServers.Clear();
+        }
         if (net.isServer)
         {
             NetworkManager.singleton.StopHost();
+            net.join = false;
+            NetworkManager.Shutdown();
         }
-        
-        
-       // NetworkManager.singleton.StopHost();
-        //UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        //Destroy(NetworkManager.singleton.gameObject);
+       
+        //Destroy(NetworkManager.singleton);
+
+
+        // NetworkManager.singleton.StopHost();
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
     public void Host()
     {
@@ -86,6 +129,8 @@ public class NetworkGameManager : MonoBehaviour
         foreach(NetworkTeam team in teamB){
             killsB += team.kills;
         }
+        blueTeamUI.text = $"{killsA}";
+        redTeamUI.text = $"{killsB}";
         if(killsA > 0){
             print("Team A on Lead");
             if(killsA >= killToWin){

@@ -84,6 +84,7 @@ public class PlayerHealth : NetworkBehaviour
             //NetworkGameManager.instance.playerStat[lasthit].Team !
             if(networkTeam.Team != NetworkGameManager.instance.playerStat[lasthit].Team){
                 localHealth -= ammount;
+                localHealth = Mathf.Clamp(localHealth, 0, 100);
             }else{
                 print("Friendly fire disabled");
             }
